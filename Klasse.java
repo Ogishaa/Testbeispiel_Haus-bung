@@ -21,7 +21,6 @@ public class Klasse
             e.printStackTrace();
         }
 	}
-	
 
 	public static void createTableKlasse(Connection c) 
 	{

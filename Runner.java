@@ -24,8 +24,8 @@ public class Runner
 	public static void main(String[] args) 
 	{
 		String url = "jdbc:mysql://localhost:3306/testbeispiel";
-		String user = "root";
-		String passwort = "";
+		String user = "ogisha";
+		String passwort = "ogisha123";
 		
 		try 
 		{
@@ -51,10 +51,10 @@ public class Runner
 			Klasse.insertIntoKlasse(c, "3AHWII", "Sascha Jambor");
 			Klasse.insertIntoKlasse(c, "2AHWII", "Philipp Wischounig");
 			
-			System.out.println("\nSCHUELER ZU KLASSE");
+			System.out.println("SCHUELER ZU KLASSE");
 			SchuelerZuKlasse.insertIntoSchulerZuKlasse(c, "Leo Juric", "2AHWII");
 			SchuelerZuKlasse.insertIntoSchulerZuKlasse(c, "Berkan Aslan", "2AHWII");
-			SchuelerZuKlasse.insertIntoSchulerZuKlasse(c, "Ognjen Manojlovic", "3AHWII");
+			SchuelerZuKlasse.insertIntoSchulerZuKlasse(c, "Ogisha Manojlovic", "3AHWII");
 			
 		} catch (SQLException e)
 		{

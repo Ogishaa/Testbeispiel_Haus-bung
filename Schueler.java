@@ -23,12 +23,12 @@ public class Schueler
         }
 	}
 	
-	
 	public static void createTableSchueler(Connection c) 
 	{
 		Statement stmt;
 		String sql;
-		try {
+		try 
+		{
         	stmt = c.createStatement();
             sql = "CREATE TABLE IF NOT EXISTS Schueler(" +
                   "id INT PRIMARY KEY AUTO_INCREMENT," +

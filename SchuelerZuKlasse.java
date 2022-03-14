@@ -25,8 +25,6 @@ public class SchuelerZuKlasse
         }
 	}
 	
-	
-//AUFGABE b)
 	public static void createTableSchuelerZuKlasse(Connection c)
 	{
 		Statement stmt;
@@ -34,13 +32,13 @@ public class SchuelerZuKlasse
 		try 
 		{
         	stmt = c.createStatement();
-            sql = "CREATE TABLE IF NOT EXISTS SchuelerZuKlasse" +
-                  "(schuelerid INTEGER NOT NULL," +
-                  "klassenid INTEGER NOT NULL," +
+            sql = "CREATE TABLE IF NOT EXISTS SchuelerZuKlasse " +
+                  "(schuelerid INT NOT NULL," +
+                  "klassenid INT NOT NULL," +
                   "datum DATE NOT NULL," +
                   "PRIMARY KEY(schuelerid, klassenid, datum)," +
-                  "FOREIGN KEY(schuelerid) REFERENCES Schueler(id)" +
-                  "FOREIGN KEY(klassenid) REFERENCES Klasse(id);";
+                  "FOREIGN KEY(schuelerid) REFERENCES Schueler(id)," +
+                  "FOREIGN KEY(klassenid) REFERENCES Klasse(id));";
             stmt.executeUpdate(sql);
             stmt.close();
         } catch (SQLException e) 
@@ -48,7 +46,6 @@ public class SchuelerZuKlasse
             e.printStackTrace();
         }
     }
-	
 	
 	public static void insertIntoSchulerZuKlasse(Connection c, String schuelername, String klassenname) 
 	{
