@@ -1,6 +1,7 @@
 package Test_Aufgabe;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -49,32 +50,42 @@ public class SchuelerZuKlasse
 	
 	public static void insertIntoSchulerZuKlasse(Connection c, String schuelername, String klassenname) 
 	{
-		Statement stmt;
 		String sql;
 		try 
 		{
         	int schuelerid = 0;
     		int klassenid = 0;
-        	stmt = c.createStatement();
-    		java.sql.Date localdate = java.sql.Date.valueOf(LocalDate.now()); //Von Livio :D
+    		java.sql.Date zuteilungsdatum = java.sql.Date.valueOf(LocalDate.now()); 
     		
-        	sql = String.format("SELECT id FROM schueler where name = \"%s\"", schuelername);
-			ResultSet rs = stmt.executeQuery(sql);
+        	sql = "SELECT id FROM schueler where name = ?";
+        	PreparedStatement preStmt = c.prepareStatement(sql);
+			preStmt.setString(1, schuelername);
+			
+			ResultSet rs = preStmt.executeQuery();
 			while(rs.next())
 			{
 				schuelerid = rs.getInt("id");
 			}
-			sql = String.format("SELECT id FROM klasse where name = \"%s\"", klassenname);
-			rs = stmt.executeQuery(sql);
+
+			sql = "SELECT id FROM klasse where name = ?";
+			preStmt = c.prepareStatement(sql);
+			preStmt.setString(1, klassenname);
+			
+			rs = preStmt.executeQuery();
 			while(rs.next()) 
 			{
 				klassenid = rs.getInt("id");
 			}
-			sql = String.format("INSERT INTO SchuelerZuKlasse VALUES(%d, %d, \"" +  localdate + "\");", schuelerid, klassenid);
-			stmt.executeUpdate(sql);
+			
+			sql = "INSERT INTO SchuelerZuKlasse VALUES (?, ?, ?)";
+	        preStmt = c.prepareStatement(sql);
+	        preStmt.setInt(1, schuelerid);
+	        preStmt.setInt(2, klassenid);
+	        preStmt.setDate(3, zuteilungsdatum);
+	        preStmt.executeUpdate();
 		
 			rs.close();
-			stmt.close();
+			preStmt.close();
 		} 
 		catch(SQLException e) 
 		{

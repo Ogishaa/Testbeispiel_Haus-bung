@@ -1,6 +1,7 @@
 package Test_Aufgabe;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -43,14 +44,16 @@ public class Klasse
 	
 	public static void insertIntoKlasse(Connection c, String name, String klassenvorstand) 
 	{
-		Statement stmt;
 		String sql;
 		try 
 		{
-        	stmt = c.createStatement();
-            sql = String.format("INSERT INTO Klasse (name, klassenvorstand) VALUES(\"%s\", \"%s\");", name, klassenvorstand);
-            stmt.executeUpdate(sql);
-            stmt.close();
+            sql = String.format("INSERT INTO Klasse (name, klassenvorstand) VALUES (?,?);");
+            PreparedStatement preStmt = c.prepareStatement(sql);
+            
+            preStmt.setString(1, name);
+            preStmt.setString(2, klassenvorstand);
+            preStmt.executeUpdate();
+            preStmt.close();
         } catch (SQLException e) 
 		{
             e.printStackTrace();
